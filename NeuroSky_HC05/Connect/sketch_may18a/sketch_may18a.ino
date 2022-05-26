@@ -1,6 +1,6 @@
 #include <SoftwareSerial.h>
 #define BAUDRATE 57600
-SoftwareSerial blueTooth(11, 10); // RX | TX
+SoftwareSerial blueTooth(2,3); // RX | TX
 
 // Identifier : 0081:F9:08AA47
 // AT Mode -> Communication Mode : 누른 상태에서 해제 후, 누르지 않은 상태에서 연결
@@ -20,11 +20,11 @@ SoftwareSerial blueTooth(11, 10); // RX | TX
 
 void setup()
 {
-  pinMode(9, OUTPUT);  // this pin will pull the HC-05 pin 34 (key pin) HIGH to switch module to AT mode
-  digitalWrite(9, HIGH);
+//  pinMode(9, OUTPUT);  // this pin will pull the HC-05 pin 34 (key pin) HIGH to switch module to AT mode
+//  digitalWrite(9, HIGH);
   Serial.begin(38400); //for AT Mode
   blueTooth.begin(38400);  // HC-05 default speed in AT command more
-  Serial.println("Enter AT commands:");
+  Serial.println("Enter AT commands");
 }
 
 void loop()

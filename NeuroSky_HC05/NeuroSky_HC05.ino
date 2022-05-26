@@ -1,9 +1,10 @@
 #include <SoftwareSerial.h>
 #define BAUDRATE 57600
-SoftwareSerial blueTooth(11, 10); // RX | TX
+SoftwareSerial blueTooth(2,3); // RX | TX
+//2,3으로 업로드 후 0,1로 치환 
 
 byte payloadData[32] = {0};
-byte Attention[5] = {0};
+byte Attention = 0;
 byte checkSum = 0;
 byte generatedCheckSum = 0;
 int Plength, Temp;
@@ -15,7 +16,7 @@ void setup()
 {
   Serial.begin(BAUDRATE);
   Serial.println("Average Attention Values");
-  delay(15);
+  delay(10);
 }
 
 //Read Data
@@ -29,9 +30,7 @@ byte ReadData(){
 void loop()
 {
   int ByteRead;
-    ByteRead = Serial.read();
   while(1){
-    Serial.println(ByteRead);
     if(ReadData() == 170){
       if(ReadData() == 170){
         Plength = ReadData();
@@ -43,22 +42,13 @@ void loop()
           }
           generatedCheckSum = 255 - generatedCheckSum;
           checkSum = ReadData();
-
           if(checkSum == generatedCheckSum){
             if(payloadData[28] == 4){
-              if(j<4){
-                Attention[k] = payloadData[29];
-                Temp += Attention[k];
-                j++;
-              }
-              else{
-                Att_Avg = Temp/4;
-                Serial.println(Att_Avg, DEC);
-                j = 0;
-                Temp = 0;
-                if(Att_Avg > 50){
-                  // Additional Logic ~
-                }
+              Attention = payloadData[29];
+              Serial.print("Attention Value : ");
+              Serial.println(Attention, DEC);
+              if(Attention > 50){
+                //logic
               }
             }
           }
