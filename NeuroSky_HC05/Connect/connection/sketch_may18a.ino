@@ -1,6 +1,7 @@
 #include <SoftwareSerial.h>
-#define BAUDRATE 57600
-SoftwareSerial blueTooth(2,3); // RX | TX
+
+SoftwareSerial blueTooth(2,3); // for Neurosky
+SoftwareSerial master(10,11); // for Master
 
 // Identifier : 0081:F9:08AA47
 // AT Mode -> Communication Mode : 누른 상태에서 해제 후, 누르지 않은 상태에서 연결
@@ -20,10 +21,9 @@ SoftwareSerial blueTooth(2,3); // RX | TX
 
 void setup()
 {
-//  pinMode(9, OUTPUT);  // this pin will pull the HC-05 pin 34 (key pin) HIGH to switch module to AT mode
-//  digitalWrite(9, HIGH);
   Serial.begin(38400); //for AT Mode
   blueTooth.begin(38400);  // HC-05 default speed in AT command more
+  master.begin(38400);
   Serial.println("Enter AT commands");
 }
 
@@ -31,12 +31,12 @@ void loop()
 {
   //for AT MODE
   // Keep reading from HC-05 and send to Arduino Serial Monitor
-  if (blueTooth.available()){
-    Serial.write(blueTooth.read());
+  if (master.available()){
+    Serial.write(master.read());
   }
 
   // Keep reading from Arduino Serial Monitor and send to HC-05
   if (Serial.available())
-    blueTooth.write(Serial.read());
+    master.write(Serial.read());
 
 }
