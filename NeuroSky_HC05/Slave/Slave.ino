@@ -2,23 +2,22 @@
 SoftwareSerial slave(2,3); 
 
 // MASTER ADDR : 0021:09:002B85
+// HC-06 : 98 DA 60 02 D2 1A
+
+int cmd = 0;
+int val = 0;
+
 void setup()
 {
   Serial.begin(9600); 
   slave.begin(9600); 
-  Serial.println("Enter AT commands");
+  Serial.println("Start");
 }
 
 void loop()
 {
-  //for AT MODE
-  // Keep reading from HC-05 and send to Arduino Serial Monitor
-  if (slave.available()){
-    Serial.write(slave.read());
+  while(slave.available() > 0){
+    cmd = (int)slave.read();
+    Serial.println(cmd);
   }
-
-  // Keep reading from Arduino Serial Monitor and send to HC-05
-  if (Serial.available())
-    slave.write(Serial.read());
-
 }

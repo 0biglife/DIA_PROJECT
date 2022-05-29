@@ -1,7 +1,6 @@
 #include <SoftwareSerial.h>
 #define BAUDRATE 57600
 SoftwareSerial blueTooth(2,3); // RX | TX
-SoftwareSerial master(10,11); // for Master
 //2,3으로 업로드 후 0,3로 치환 
 
 byte payloadData[32] = {0};
@@ -16,9 +15,8 @@ signed int j = 0;
 void setup()
 {
   Serial.begin(BAUDRATE);
-  blueTooth.begin(BAUDRATE);
-  master.begin(9600);
   Serial.println("Average Attention Values");
+  delay(10);
 }
 
 //Read Data
@@ -47,9 +45,8 @@ void loop()
           if(checkSum == generatedCheckSum){
             if(payloadData[28] == 4){
               Attention = payloadData[29];
-              Serial.print("Attention Value : ") ;
+//              Serial.print("Attention Value : ") ;
               Serial.println(Attention, DEC);
-              master.write(Attention);
               if(Attention > 50){
                 //logic
               }
