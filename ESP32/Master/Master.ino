@@ -25,7 +25,7 @@ uint8_t broadcastAddress1[] = {0x08, 0x3A, 0xF2, 0xAC, 0x8C, 0x24};
 uint8_t broadcastAddress2[] = {0x08, 0x3A, 0xF2, 0xAC, 0x4B, 0xE4};
 
 typedef struct struct_message {
-  int Attention;
+  int Att;
 } struct_data;
 
 struct_data myData;
@@ -37,8 +37,8 @@ void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
 }
 
 void setup(){
-  Serial.begin(115200);
-  master.begin(38400);
+  Serial.begin(57600);
+  master.begin(57600);
   
   Serial.println("Attention Value ! ");
   
