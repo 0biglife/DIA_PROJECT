@@ -17,7 +17,7 @@ void setup()
 {
   Serial.begin(BAUDRATE);
   blueTooth.begin(BAUDRATE);
-  master.begin(9600);
+  master.begin(BAUDRATE);
   Serial.println("Average Attention Values");
 }
 

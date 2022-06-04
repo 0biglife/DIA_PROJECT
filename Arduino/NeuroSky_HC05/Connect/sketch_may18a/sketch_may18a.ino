@@ -2,6 +2,10 @@
 
 SoftwareSerial blueTooth(2,3); // for Neurosky
 SoftwareSerial master(10,11); // for Master
+
+// 데이터직접받는 NAME: HC-05 : 0021:09:002B85
+// ESP32 : 083A,F2,AB7BAA
+
 // MASTER ADDR : 98D3:21:F79642 
 // 98D3,21,F79642
 
@@ -21,12 +25,12 @@ SoftwareSerial master(10,11); // for Master
 // AT+INQ ..wait
 // AT+PAIR=0081:F9:08AA47, 30
 // AT+BIND=0081:F9:08AA47
-// AT+LINK=0081:F9:08AA47 // -> 연결 마지막 명령어 -> 점등 2연속 3초 간
+// AT+LINK=0081,F9,08AA47 // -> 연결 마지막 명령어 -> 점등 2연속 3초 간
 
 void setup()
 {
   Serial.begin(38400); //for AT Mode
-  blueTooth.begin(38400);  // HC-05 default speed in AT command more
+//  blueTooth.begin(38400);  // HC-05 default speed in AT command more
   master.begin(38400);
   Serial.println("Enter AT commands");
 }
