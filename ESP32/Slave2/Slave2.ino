@@ -3,14 +3,6 @@
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 
-#define LED_GPIO 5
-#define PWM1_Ch 0
-#define PWM1_Res 8
-#define PWM1_Freq 1000
-
-
-int PWM1_DutyCycle = 0;
-
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver(0x40);
 
 typedef struct test_struct {
@@ -33,8 +25,6 @@ void setup() {
   //Set device as a Wi-Fi Station
   WiFi.mode(WIFI_STA);
 
-  Serial.print(WiFi.macAddress());
-
   //Init ESP-NOW
   if (esp_now_init() != ESP_OK) {
     Serial.println("Error initializing ESP-NOW");
@@ -42,9 +32,6 @@ void setup() {
   }
   
   esp_now_register_recv_cb(OnDataRecv);
-
-//  ledcAttachPin(LED_GPIO, PWM1_Ch);
-//  ledcSetup(PWM1_Ch, PWM1_Freq, PWM1_Res);
 }
 
 int mul;
