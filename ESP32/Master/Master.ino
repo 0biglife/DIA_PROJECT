@@ -40,24 +40,21 @@ void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
   Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
 }
 
+esp_now_peer_info_t peerInfo;
+
 void setup(){
   Serial.begin(57600);
   master.begin(57600);
   
-  Serial.println("Attention Value ! ");
-  
   WiFi.mode(WIFI_STA);
-  
-  // Init ESP-NOW
+
   if (esp_now_init() != ESP_OK) {
     Serial.println("Error initializing ESP-NOW");
     return;
   }
 //
   esp_now_register_send_cb(OnDataSent);
-//
-//  // Register peer
-  esp_now_peer_info_t peerInfo;
+
   peerInfo.channel = 0;  
   peerInfo.encrypt = false;
   
@@ -84,6 +81,19 @@ byte ReadData(){
  
 void loop(){
 //  ReadData();
+
+//  myData.Att = random(0,20);
+//  
+//  esp_err_t result = esp_now_send(0, (uint8_t *) &myData, sizeof(struct_data));
+//
+//  if (result == ESP_OK) {
+//    Serial.println("Sent with success");
+//  }
+//  else {
+//    Serial.println("Error sending the data");
+//  }
+//  delay(1000);
+
   while(1){
     if(ReadData() == 170){
       if(ReadData() == 170){
@@ -102,13 +112,7 @@ void loop(){
               myData.Att = Attention;
               Serial.print("Attention Value : ");
               Serial.println(Attention, DEC);
-              esp_err_t result = esp_now_send(broadcastAddress2, (uint8_t *) &myData, sizeof(struct_data));
-
-              if (result == ESP_OK){
-                Serial.println("Sent with suceess");
-              }else{
-                Serial.println("Error Sending the data");
-              }
+              esp_err_t result = esp_now_send(0, (uint8_t *) &myData, sizeof(struct_data));
             }
           }
         }

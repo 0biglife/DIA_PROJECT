@@ -3,14 +3,6 @@
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 
-#define LED_GPIO 5
-#define PWM1_Ch 0
-#define PWM1_Res 8
-#define PWM1_Freq 1000
-
-
-int PWM1_DutyCycle = 0;
-
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver(0x40);
 
 typedef struct test_struct {
@@ -26,11 +18,10 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
 }
  
 void setup() {
-  //Initialize Serial Monitor
   Serial.begin(57600);
   pwm.begin();
   pwm.setPWMFreq(1600);
-  //Set device as a Wi-Fi Station
+
   WiFi.mode(WIFI_STA);
 
   Serial.print(WiFi.macAddress());
@@ -42,28 +33,94 @@ void setup() {
   }
   
   esp_now_register_recv_cb(OnDataRecv);
-
-//  ledcAttachPin(LED_GPIO, PWM1_Ch);
-//  ledcSetup(PWM1_Ch, PWM1_Freq, PWM1_Res);
+  
+    pwm.setPWM(0, 0, 0);
+    pwm.setPWM(1, 0, 0);
+    pwm.setPWM(2, 0, 0);
+    pwm.setPWM(3, 0, 0);
+    pwm.setPWM(4, 0, 0);
+    pwm.setPWM(5, 0, 0);
+    pwm.setPWM(6, 0, 0);
+    pwm.setPWM(7, 0, 0);
 }
 
 int mul;
  
 void loop() {
-//  mul = map(myData.Att, 0, 100, 0, 255);
-//  ledcWrite(PWM1_Ch, mul);
-
-  if (myData.Att > 0 && myData.Att < 50){
-    for (uint16_t i=0; i<4096; i += 8){
-      for (uint8_t pwmnum=0; pwmnum < 4; pwmnum++){
-        pwm.setPWM(pwmnum, 0, (i + (4096/16)*pwmnum) % 4096 );
-      }
-    }
-  }else if(myData.Att > 50){
-    for (uint16_t i=0; i<4096; i += 8){
-      for (uint8_t pwmnum=4; pwmnum < 8; pwmnum++){
-        pwm.setPWM(pwmnum, 0, (i + (4096/16)*pwmnum) % 4096 );
-      }
-    }
+////  mul = map(myData.Att, 0, 100, 0, 255);
+  if (myData.Att > 0 && myData.Att < 20){
+//    for (uint16_t i=0; i<256; i += 8){
+    pwm.setPWM(0, 0, 255);
+    pwm.setPWM(1, 0, 0);
+    pwm.setPWM(2, 0, 0);
+    pwm.setPWM(3, 0, 0);
+    pwm.setPWM(4, 0, 0);
+    pwm.setPWM(5, 0, 0);
+    pwm.setPWM(6, 0, 0);
+    pwm.setPWM(7, 0, 0);
+//    }
+  }else if(myData.Att >= 20 && myData.Att < 40){
+    pwm.setPWM(0, 0, 255);
+    pwm.setPWM(1, 0, 255);
+    pwm.setPWM(2, 0, 0);
+    pwm.setPWM(3, 0, 0);
+    pwm.setPWM(4, 0, 0);
+    pwm.setPWM(5, 0, 0);
+    pwm.setPWM(6, 0, 0);
+    pwm.setPWM(7, 0, 0);
+  }else if(myData.Att >= 40 && myData.Att < 50){
+    pwm.setPWM(0, 0, 255);
+    pwm.setPWM(1, 0, 255);
+    pwm.setPWM(2, 0, 255);
+    pwm.setPWM(3, 0, 0);
+    pwm.setPWM(4, 0, 0);
+    pwm.setPWM(5, 0, 0);
+    pwm.setPWM(6, 0, 0);
+    pwm.setPWM(7, 0, 0);
+  }else if(myData.Att >= 50 && myData.Att < 60){
+    pwm.setPWM(0, 0, 255);
+    pwm.setPWM(1, 0, 255);
+    pwm.setPWM(2, 0, 255);
+    pwm.setPWM(3, 0, 255);
+    pwm.setPWM(4, 0, 0);
+    pwm.setPWM(5, 0, 0);
+    pwm.setPWM(6, 0, 0);
+    pwm.setPWM(7, 0, 0);
+  }else if(myData.Att >= 60 && myData.Att < 70){
+    pwm.setPWM(0, 0, 255);
+    pwm.setPWM(1, 0, 255);
+    pwm.setPWM(2, 0, 255);
+    pwm.setPWM(3, 0, 255);
+    pwm.setPWM(4, 0, 255);
+    pwm.setPWM(5, 0, 0);
+    pwm.setPWM(6, 0, 0);
+    pwm.setPWM(7, 0, 0);
+  }else if(myData.Att >= 70 && myData.Att < 80){
+    pwm.setPWM(0, 0, 255);
+    pwm.setPWM(1, 0, 255);
+    pwm.setPWM(2, 0, 255);
+    pwm.setPWM(3, 0, 255);
+    pwm.setPWM(4, 0, 255);
+    pwm.setPWM(5, 0, 255);
+    pwm.setPWM(6, 0, 0);
+    pwm.setPWM(7, 0, 0);
+  }else if(myData.Att >= 80 && myData.Att < 90){
+    pwm.setPWM(0, 0, 255);
+    pwm.setPWM(1, 0, 255);
+    pwm.setPWM(2, 0, 255);
+    pwm.setPWM(3, 0, 255);
+    pwm.setPWM(4, 0, 255);
+    pwm.setPWM(5, 0, 255);
+    pwm.setPWM(6, 0, 255);
+    pwm.setPWM(7, 0, 0);
+  }else if(myData.Att >= 90){
+    pwm.setPWM(0, 0, 255);
+    pwm.setPWM(1, 0, 255);
+    pwm.setPWM(2, 0, 255);
+    pwm.setPWM(3, 0, 255);
+    pwm.setPWM(4, 0, 255);
+    pwm.setPWM(5, 0, 255);
+    pwm.setPWM(6, 0, 255);
+    pwm.setPWM(7, 0, 255);
   }
 }
