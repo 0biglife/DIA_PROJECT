@@ -17,12 +17,15 @@ signed int j = 0;
 // 1 -> 08:3A:F2:AB:7B:A8
 // 2 -> 08:3A:F2:AC:8C:24
 // 3 -> 08:3A:F2:AC:4B:E4
+// 4 -> 08:3A:F2:AC:3A:78
+
 
 // Uno -> 98D3:21:F79642
 // ESP -> 08:3A:F2:AB:7B:AA
 
 uint8_t broadcastAddress1[] = {0x08, 0x3A, 0xF2, 0xAC, 0x8C, 0x24};
 uint8_t broadcastAddress2[] = {0x08, 0x3A, 0xF2, 0xAC, 0x4B, 0xE4};
+uint8_t broadcastAddress3[] = {0x08, 0x3A, 0xF2, 0xAC, 0x3A, 0x78};
 
 typedef struct struct_data {
   int Att;
@@ -66,6 +69,12 @@ void setup(){
   }
   
   memcpy(peerInfo.peer_addr, broadcastAddress2, 6);
+  if (esp_now_add_peer(&peerInfo) != ESP_OK){
+    Serial.println("Failed to add 2 peer");
+    return;
+  }
+
+  memcpy(peerInfo.peer_addr, broadcastAddress3, 6);
   if (esp_now_add_peer(&peerInfo) != ESP_OK){
     Serial.println("Failed to add 2 peer");
     return;
